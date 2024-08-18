@@ -25,7 +25,7 @@ def simulate_stock_prices(S0, mu, sigma, T, dt, N):
     return price_paths
 
 # Function to animate the simulated stock price paths
-def animate_simulation(price_paths, S0, T, interval=20, title='Monte Carlo Simulation: Animated Stock Price Paths'):
+def animate_simulation(price_paths, S0, T, interval=20, title='Time-Lapse of Simulated Stock Price Paths'):
     fig, ax = plt.subplots(figsize=(10, 5))
     ax.set_title(title, fontsize=14)
     ax.set_xlabel('Time Steps', fontsize=12)
