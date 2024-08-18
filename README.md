@@ -50,7 +50,7 @@ pip install numpy pandas matplotlib seaborn yfinance
    - Review summary statistics, including mean price, confidence intervals, and standard deviation.
    - View the final simulation plot.
    
-   **NOTE** : There are no next or previous buttons to toggle between visualizations; you must close the current window to view the next visualization.
+      **NOTE** : There are no next or previous buttons to toggle between visualizations; you must close the current window to view the next visualization.
 
 4. **Exporting Data**  
    Click **"Save to CSV"** to export the simulation data and summary statistics.
