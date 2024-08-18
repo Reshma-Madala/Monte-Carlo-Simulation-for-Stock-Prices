@@ -85,24 +85,21 @@ def plot_final_simulation(price_paths):
 
 # Function to save simulation data to CSV
 def save_to_csv(price_paths, summary_stats, prices):
-    # Prompt for directory to save files
+    
     save_dir = asksaveasfilename(defaultextension=".csv", filetypes=[("CSV files", "*.csv")], title="Save Simulation Files")
     
     if not save_dir:
-        return  # User cancelled the file dialog
+        return  
 
     try:
-        # Save price paths
         price_paths_df = pd.DataFrame(price_paths)
         price_paths_file = save_dir.replace('.csv', '_price_paths.csv')
         price_paths_df.to_csv(price_paths_file, index=False)
         
-        # Save summary statistics
         summary_df = pd.DataFrame([summary_stats], columns=['Mean Price', 'Lower CI', 'Upper CI', 'Worst Case', 'Best Case', 'Standard Deviation'])
         summary_file = save_dir.replace('.csv', '_summary_stats.csv')
         summary_df.to_csv(summary_file, index=False)
-        
-        # Save original prices
+       
         prices_df = pd.DataFrame(prices, columns=['Adj Close'])
         prices_file = save_dir.replace('.csv', '_original_prices.csv')
         prices_df.to_csv(prices_file, index=True)
@@ -124,15 +121,11 @@ def display_simulation_summary(mean_price, lower_bound, upper_bound, worst_case,
         Label(summary_window, text=f"Best-case Scenario: ${best_case:.2f}", font=("Georgia", 12)).pack(pady=5)
         Label(summary_window, text=f"Standard Deviation of Final Prices: ${std_dev:.2f}", font=("Georgia", 12)).pack(pady=5)
 
-        # Calculate ROI
         roi_dollars = mean_price - S0  # ROI in dollars
         roi_percentage = (roi_dollars / S0) * 100  # ROI as a percentage
-
-        # Display ROI
         Label(summary_window, text=f"ROI in Dollars: ${roi_dollars:.2f}", font=("Georgia", 12)).pack(pady=5)
         Label(summary_window, text=f"ROI Percentage: {roi_percentage:.2f}%", font=("Georgia", 12)).pack(pady=5)
 
-        # Investment Decisions
         if mean_price > S0 and upper_bound > S0:
             investment_decision = ("The simulation indicates a positive outlook with the mean price and upper bound "
                                     "both above the starting price. The investment might be worthwhile if the risk is acceptable.")
@@ -155,15 +148,12 @@ def display_simulation_summary(mean_price, lower_bound, upper_bound, worst_case,
         Label(summary_window, text="Analysis Summary", font=("Georgia", 14)).pack(pady=10)
         Label(summary_window, text=decision_rationale, font=("Georgia", 12), wraplength=480).pack(pady=5)
 
-        # Create a frame to hold buttons side by side
         button_frame = tk.Frame(summary_window)
         button_frame.pack(pady=20)
 
-        # Save to CSV button
         save_button = Button(button_frame, text="Save to CSV", command=lambda: save_to_csv(price_paths, (mean_price, lower_bound, upper_bound, worst_case, best_case, std_dev), prices), font=("Georgia", 12))
         save_button.pack(side=tk.LEFT, padx=10)
 
-        # OK button
         ok_button = Button(button_frame, text="OK", command=lambda: [summary_window.destroy(), show_options_window()], font=("Georgia", 12))
         ok_button.pack(side=tk.LEFT, padx=10)
     except Exception as e:
@@ -173,22 +163,18 @@ def display_simulation_summary(mean_price, lower_bound, upper_bound, worst_case,
 def monte_carlo_simulation(prices, T=300, N=100, confidence_interval=0.95, interval=20):
     try:
         log_returns = calculate_log_returns(prices)
-        mu = log_returns.mean() * T  # Mean return
-        sigma = log_returns.std() * np.sqrt(T)  # Volatility
+        mu = log_returns.mean() * T  
+        sigma = log_returns.std() * np.sqrt(T) 
         S0 = prices.iloc[-1]  # Starting price
         dt = 1 / T  # Time step
         price_paths = simulate_stock_prices(S0, mu, sigma, T, dt, N)
-        
-        # Show animation three times
+
         animate_simulation(price_paths, S0, T, interval=interval)
-        
-        # Show summary statistics
+
         mean_price, lower_bound, upper_bound, worst_case, best_case, std_dev = plot_summary_statistics(price_paths, T, N, confidence_interval)
-        
-        # Show final simulation picture
+      
         plot_final_simulation(price_paths)
-        
-        # Display the summary window with investment advice, ROI, and rationale
+
         display_simulation_summary(mean_price, lower_bound, upper_bound, worst_case, best_case, std_dev, S0, price_paths, prices)
     except Exception as e:
         messagebox.showerror("Error", f"An error occurred during the simulation: {str(e)}")
@@ -199,17 +185,14 @@ def about():
     about_window.title("About Monte Carlo Simulation")
     about_window.geometry("650x800")
 
-    # Title
     Label(about_window, text="Monte Carlo Simulation", font=("Georgia", 18, 'bold')).pack(pady=15)
 
-    # Introduction
     Label(about_window, text=(
         "Monte Carlo Simulation is a powerful mathematical technique used to model the probability of different outcomes "
         "in a process that cannot easily be predicted due to the intervention of random variables. Named after the Monte Carlo Casino "
         "due to the element of chance involved, it is widely used in various fields including finance, engineering, and project management."
     ), font=("Georgia", 12), wraplength=600, justify=tk.LEFT).pack(pady=10, padx=15)
-    
-    # Purpose
+
     Label(about_window, text=(
         "This tool provides a user-friendly interface to perform Monte Carlo simulations for stock price forecasting. Key features include:\n"
         "- Simulating multiple future price paths for a stock using Geometric Brownian Motion (GBM).\n"
@@ -217,23 +200,20 @@ def about():
         "- Providing visualizations including animated price paths and histograms of final prices.\n"
         "- Allowing users to save simulation results and summary statistics to CSV files."
     ), font=("Georgia", 12), wraplength=600, justify=tk.LEFT).pack(pady=10, padx=15)
-    
-    # User Instructions
+
     Label(about_window, text=(
         "User Instructions:\n"
         "1. Enter the stock ticker symbol, start and end dates, number of time steps, and number of paths.\n"
         "2. Run the simulation to generate and visualize multiple price paths.\n"
         "3. Review the summary statistics and decide on investment strategies based on the results."
     ), font=("Georgia", 12), wraplength=600, justify=tk.LEFT).pack(pady=10, padx=15)
-    
-    # Disclaimer
+
     Label(about_window, text=(
         "Disclaimer:\n"
         "This simulation is intended for educational and informational purposes only. It does not constitute financial advice. "
         "Please consult with a financial advisor before making any investment decisions."
     ), font=("Georgia", 12), wraplength=600, justify=tk.LEFT).pack(pady=10, padx=15)
-    
-    # Buttons
+
     button_frame = tk.Frame(about_window)
     button_frame.pack(pady=20)
     
@@ -272,8 +252,7 @@ def input_parameters():
         ticker = ticker_entry.get()
         start_date = start_date_entry.get()
         end_date = end_date_entry.get()
-        
-        # Validate date format
+
         try:
             datetime.strptime(start_date, "%Y-%m-%d")
             datetime.strptime(end_date, "%Y-%m-%d")
@@ -287,8 +266,7 @@ def input_parameters():
         except ValueError:
             messagebox.showerror("Error", "Number of time steps and paths must be integers.")
             return
-        
-        # Fetch stock data
+
         try:
             stock_data = yf.download(ticker, start=start_date, end=end_date)
             if stock_data.empty:
@@ -298,8 +276,7 @@ def input_parameters():
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred while fetching stock data: {str(e)}")
             return
-        
-        # Run Monte Carlo Simulation
+
         monte_carlo_simulation(prices, T=time_steps, N=num_paths, confidence_interval=0.95, interval=20)
         
         input_window.destroy()
