@@ -34,7 +34,11 @@ pip install numpy pandas matplotlib seaborn yfinance
 1. **Launch the Application**  
    Execute the script to open the main GUI.
 
-2. **Input Parameters**  
+![Home](https://github.com/user-attachments/assets/6bed8e4f-7a91-4c84-87f8-aac25070d935)
+
+   
+
+3. **Input Parameters**  
    - Click **"Start Simulation"** to access the input parameters window.  
    - Enter the following details:
       - **Stock Ticker Symbol**: e.g., AAPL
@@ -44,18 +48,25 @@ pip install numpy pandas matplotlib seaborn yfinance
       - **Number of Paths**: e.g., 100
    
    - Click **"Run Simulation"** to initiate the process.
+   - 
+     ![User Input](https://github.com/user-attachments/assets/a1b6462d-5049-4ab4-9e10-adbc96f30adf)
 
-3. **Viewing Results**  
+4. **Viewing Results**  
    - Observe animated stock price paths.
    - Review summary statistics, including mean price, confidence intervals, and standard deviation.
    - View the final simulation plot.
    
    **NOTE** : There are no next or previous buttons to toggle between visualizations; you must close the current window to view the next visualization.
+   
 
-4. **Exporting Data**  
+https://github.com/user-attachments/assets/e4f204bd-c65b-4a39-9094-053b56e9e043
+
+![Histogram of Simulated Final Stock Prices](https://github.com/user-attachments/assets/007f052b-dd1a-4c4c-856e-8b024ca50301)
+
+6. **Exporting Data**  
    Click **"Save to CSV"** to export the simulation data and summary statistics.
 
-5. **About**  
+7. **About**  
    Click **"About"** to learn more about the Monte Carlo simulation and its usage.
 
 ### GUI Layout
