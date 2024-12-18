@@ -65,9 +65,14 @@ https://github.com/user-attachments/assets/e4f204bd-c65b-4a39-9094-053b56e9e043
 
 6. **Exporting Data**  
    Click **"Save to CSV"** to export the simulation data and summary statistics.
+![Simulation Summary](https://github.com/user-attachments/assets/f5036a8c-ca72-4c70-bde3-c06e07763329)
 
-7. **About**  
+
+8. **About**  
    Click **"About"** to learn more about the Monte Carlo simulation and its usage.
+
+   ![About](https://github.com/user-attachments/assets/60c9a8cc-277f-4ee4-b715-dff253b00184)
+
 
 ### GUI Layout
 1. **Main Window**
