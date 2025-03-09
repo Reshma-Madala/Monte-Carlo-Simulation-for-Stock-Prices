@@ -18,13 +18,13 @@ To get started, ensure you have Python 3.x installed along with the following li
 - `pandas`
 - `matplotlib`
 - `seaborn`
-- `yfinance`
+- `yahooquery`
 - `tkinter` (usually included with Python)
 
 Install the required libraries using pip:
 
 ```bash
-pip install numpy pandas matplotlib seaborn yfinance
+pip install numpy pandas matplotlib seaborn yahooquery
 ```
 
 ## Usage
